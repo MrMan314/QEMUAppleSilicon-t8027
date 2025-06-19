@@ -155,7 +155,7 @@ static DTBNode *dtb_deserialise_node(uint8_t **dtb_blob)
             }
             printf("dtb prop %d: %s -> %llp\n", i, key, prop);
             g_assert_true(g_hash_table_insert(node->props, key, prop));
-		}
+        }
     }
 
     for (i = 0; i < children_count; i++) {
