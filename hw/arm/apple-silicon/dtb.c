@@ -148,11 +148,14 @@ static DTBNode *dtb_deserialise_node(uint8_t **dtb_blob)
 
     for (i = 0; i < prop_count; i++) {
         prop = dtb_deserialise_prop(dtb_blob, &key);
-        if (prop == NULL) {
-            dtb_destroy_node(node);
-            return NULL;
+        if(*key) {
+            if (prop == NULL) {
+                dtb_destroy_node(node);
+                return NULL;
+            }
+            printf("dtb prop %d: %s -> %llp\n", i, key, prop);
+            g_assert_true(g_hash_table_insert(node->props, key, prop));
         }
-        g_assert_true(g_hash_table_insert(node->props, key, prop));
     }
 
     for (i = 0; i < children_count; i++) {
@@ -161,6 +164,7 @@ static DTBNode *dtb_deserialise_node(uint8_t **dtb_blob)
             dtb_destroy_node(node);
             return NULL;
         }
+        printf("child: %llp\n", child);
         node->children = g_list_append(node->children, child);
     }
 

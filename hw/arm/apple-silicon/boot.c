@@ -414,7 +414,10 @@ static void extract_im4p_payload(const char *filename, char *payload_type,
                                 len, NULL /* scratch_buffer */);
         g_free(payload_data);
 
-        if (decoded_length == 0 || decoded_length == decode_buffer_size) {
+        printf("LZFSE decompression for `%s`: decoded_length: %d, decode_buffer_size: %zu\n",
+            filename, decoded_length, decode_buffer_size);
+
+        if (decoded_length == 0 || decoded_length > decode_buffer_size) {
             error_setg(
                 &error_fatal,
                 "LZFSE decompression for `%s` failed; insufficient buffer size",

@@ -1440,6 +1440,7 @@ static void t8030_create_dart(T8030MachineState *t8030_machine,
     g_assert_nonnull(child);
 
     child = dtb_get_node(child, name);
+    printf("t8030_create_dart() child name: %s\n", name);
     g_assert_nonnull(child);
 
     dart = apple_dart_create(child);
